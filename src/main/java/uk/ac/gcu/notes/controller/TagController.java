@@ -1,16 +1,11 @@
 package uk.ac.gcu.notes.controller;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import uk.ac.gcu.notes.entity.Tag;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import uk.ac.gcu.notes.model.request.Request;
 import uk.ac.gcu.notes.service.TagService;
-
-import java.util.List;
 
 @RestController
 @RequestMapping(path = "/tags")
@@ -22,12 +17,18 @@ public class TagController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-  public Tag create(@RequestBody Request request) {
-    return tagService.create(request);
+  public ResponseEntity<?> create(@RequestBody Request request) {
+    return new ResponseEntity<>(tagService.create(request), HttpStatus.CREATED);
   }
 
   @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-  public List<Tag> getTags() {
-    return tagService.getTags();
+  public ResponseEntity<?> getTags() {
+    return new ResponseEntity<>(tagService.getTags(), HttpStatus.OK);
+  }
+
+  @DeleteMapping(path = "/{tagId}")
+  public ResponseEntity<?> delete(@PathVariable String tagId) {
+    tagService.delete(tagId);
+    return new ResponseEntity<>(HttpStatus.NO_CONTENT);
   }
 }

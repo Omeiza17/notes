@@ -2,14 +2,13 @@ package uk.ac.gcu.notes.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 
 @Getter
 @NoArgsConstructor
 public class AbstractDocument {
   @Id
-  private ObjectId id;
+  private String  id;
 
   @Override
   public boolean equals(Object obj) {

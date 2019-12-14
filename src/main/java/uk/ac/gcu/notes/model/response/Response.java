@@ -8,6 +8,6 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Response {
-  private Long id;
+  private String id;
   private String title;
 }
